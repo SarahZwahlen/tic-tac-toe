@@ -3,17 +3,17 @@ import Square from "./Square";
 const BoardGame = () =>{
     return (
         <div>
-            <div>
+            <div className="board-row">
                 <Square/>
                 <Square/>
                 <Square/>
             </div>
-            <div>
+            <div className="board-row">
                 <Square/>
                 <Square/>
                 <Square/>
             </div>
-            <div>
+            <div className="board-row">
                 <Square/>
                 <Square/>
                 <Square/>
