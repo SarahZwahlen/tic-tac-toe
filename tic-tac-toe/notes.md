@@ -62,11 +62,11 @@ Joueur 1 :
 
 
 IsWinning(){ // tester la combinaison
-    Je reçois un tableau : [0,4,7]
+    Je reçois un tableau de combinaison de joueur : [2,4,7,6]
     Je dois tester si une des combinaisons gagnantes contient ces trois valeurs
-        Prendre la première valeur, conserver uniquement les combinaisons qui contiennent cette valeur
-        Prendre la seconde valeur, idem
-        Prendre la troisième valeur, idem
+        Prendre la première valeur [0], conserver uniquement les combinaisons qui contiennent cette valeur  
+            [[2,4,6],[0,1,2], [2,5,8]]
+            Sur les combinaisons qui contiennent ces valeurs, je veux savoir si 
 
     Si le retour ne contient rien 
         Retourner false // le joueur n'a pas gagné

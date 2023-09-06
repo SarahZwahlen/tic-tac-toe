@@ -18,8 +18,19 @@ const BoardGame = () => {
     [2, 4, 6],
   ];
 
-  const isWinning = () => {
-    throw new Error("isWinning not implemented");
+  const isWinning = (combination, playerName) => {
+    for (let i = 0; i < winningCombinations.length; i++) {
+      const [a, b, c] = winningCombinations[i];
+      if (
+        combination[a] &&
+        combination[a] === combination[b] &&
+        combination[a] === combination[c]
+      ) {
+        return combination[a];
+      }
+    }
+
+    return null;
   };
 
   //Handle player turn
@@ -27,23 +38,21 @@ const BoardGame = () => {
     if (clikedSquare) {
       if (rowCounter % 2 === 0) {
         setPlayer1Combination([...player1Combination, clikedSquare]);
+        const result = isWinning(player1Combination, "Player 1");
+        console.log("result", result);
       } else {
         setPlayer2Combination([...player2Combination, clikedSquare]);
+        const result = isWinning(player2Combination, "Player 2");
+        console.log("result", result);
       }
     }
-    // isWinning();
+
+    if (rowCounter === 9) {
+      console.log("partie terminée");
+    }
   }, [rowCounter]);
 
   //Stock wich square has been clicked
-  useEffect(() => {
-    console.log("player2 comb", player2Combination);
-    console.log("player 1 comb", player1Combination);
-  }, [player1Combination, player2Combination]);
-
-  
-  const setPlayerComb = (value) => {
-    setPlayer1Combination([...player1Combination, value]);
-  };
 
   const incrementRow = () => {
     setRowConter(rowCounter + 1);
@@ -51,7 +60,7 @@ const BoardGame = () => {
 
   return (
     <>
-      <p>Tour : </p>
+      <p>Tour n°{rowCounter}: </p>
       {rowCounter % 2 === 0 ? (
         <p>Au tour de joueur 1</p>
       ) : (
@@ -60,16 +69,19 @@ const BoardGame = () => {
       <div className="board-game">
         <div className="board-row">
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="0"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="1"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="2"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
@@ -77,16 +89,19 @@ const BoardGame = () => {
         </div>
         <div className="board-row">
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="3"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="4"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="5"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
@@ -94,16 +109,19 @@ const BoardGame = () => {
         </div>
         <div className="board-row">
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="6"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="7"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
+            value={rowCounter % 2 === 0 ? "X" : "O"}
             numero="8"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
