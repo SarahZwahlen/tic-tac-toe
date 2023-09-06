@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const BoardGame = ({ player1, player2 }) => {
   const [player1Combination, setPlayer1Combination] = useState([]);
   const [player2Combination, setPlayer2Combination] = useState([]);
-  const [rowCounter, setRowConter] = useState(0);
+  const [roundCounter, setRoundCounter] = useState(0);
   const [clikedSquare, setClickeSquare] = useState(null);
   const [isWinning, setIsWinning] = useState({ win: false, name: null });
 
@@ -20,8 +20,6 @@ const BoardGame = ({ player1, player2 }) => {
   ];
 
   const isPlayerWinning = (playerCombination, playerName) => {
-    console.log(playerName, playerCombination);
-
     // Fonction pour vérifier si une combinaison est contenue dans le tableau
     function containsCombination(array, combination) {
       return combination.every((value) => array.includes(value));
@@ -34,41 +32,33 @@ const BoardGame = ({ player1, player2 }) => {
       }
     );
     if (containsWinningCombination) {
-      return true;
-    } else {
-      return false;
+      setIsWinning({ win: true, name: playerName });
     }
   };
 
   //Handle player turn
   useEffect(() => {
-    if (rowCounter % 2 === 0) {
-      const result = isPlayerWinning(player1Combination, "player1");
-      if (result) {
-        setIsWinning({ win: true, name: player1 });
-      }
+    if (roundCounter % 2 === 0) {
+      isPlayerWinning(player1Combination, player1);
     } else {
-      const result = isPlayerWinning(player2Combination, "player2");
-      if (result) {
-        setIsWinning({ win: true, name: player2 });
-      }
+      isPlayerWinning(player2Combination, player2);
     }
 
-    if (rowCounter === 9) {
+    if (roundCounter === 9) {
       console.log("partie terminée");
     }
-  }, [rowCounter]);
+  }, [roundCounter]);
 
   const incrementRow = () => {
-    setRowConter(rowCounter + 1);
+    setRoundCounter(roundCounter + 1);
   };
 
   return (
     <>
       {isWinning.win && <h2>{isWinning.name} a gagné</h2>}
 
-      <p>Tour n°{rowCounter}: </p>
-      {rowCounter % 2 === 0 ? (
+      <p>Tour n°{roundCounter}: </p>
+      {roundCounter % 2 === 0 ? (
         <p>Au tour de {player1}</p>
       ) : (
         <p>Au tour de {player2}</p>
@@ -76,42 +66,42 @@ const BoardGame = ({ player1, player2 }) => {
       <div className="board-game">
         <div className="board-row">
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="0"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="1"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="2"
             setSquareValue={setClickeSquare}
@@ -120,42 +110,42 @@ const BoardGame = ({ player1, player2 }) => {
         </div>
         <div className="board-row">
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="3"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="4"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="5"
             setSquareValue={setClickeSquare}
@@ -164,42 +154,42 @@ const BoardGame = ({ player1, player2 }) => {
         </div>
         <div className="board-row">
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="6"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="7"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
-            value={rowCounter % 2 === 0 ? "X" : "O"}
+            value={roundCounter % 2 === 0 ? "X" : "O"}
             setPlayerCombination={
-              rowCounter % 2 === 0
+              roundCounter % 2 === 0
                 ? setPlayer1Combination
                 : setPlayer2Combination
             }
             playerCombination={
-              rowCounter % 2 === 0 ? player1Combination : player2Combination
+              roundCounter % 2 === 0 ? player1Combination : player2Combination
             }
             numero="8"
             setSquareValue={setClickeSquare}
