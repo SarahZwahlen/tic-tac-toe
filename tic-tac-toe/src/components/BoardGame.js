@@ -1,7 +1,7 @@
 import Square from "./Square";
 import { useEffect, useState } from "react";
 
-const BoardGame = () => {
+const BoardGame = ({ player1, player2 }) => {
   const [player1Combination, setPlayer1Combination] = useState([]);
   const [player2Combination, setPlayer2Combination] = useState([]);
   const [rowCounter, setRowConter] = useState(0);
@@ -62,9 +62,9 @@ const BoardGame = () => {
     <>
       <p>Tour n°{rowCounter}: </p>
       {rowCounter % 2 === 0 ? (
-        <p>Au tour de joueur 1</p>
+        <p>Au tour de {player1}</p>
       ) : (
-        <p>Au tour de joueur 2</p>
+        <p>Au tour de {player2}</p>
       )}
       <div className="board-game">
         <div className="board-row">
