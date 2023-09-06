@@ -79,3 +79,13 @@ IsWinning(){ // tester la combinaison
 // Stocker le résultat 
 
 // On veut aussi pouvoir consulter le résultat
+
+
+// déclencher le début du jeu
+// Gérer qui commence
+// reset le jeu
+
+
+// gérer le fait qu'un bouton est cliqué par un joueur
+// Sauvegarder les cases cliquées par joueur
+// Vérifier les combinaisons
