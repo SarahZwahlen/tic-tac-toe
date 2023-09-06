@@ -18,41 +18,33 @@ const BoardGame = ({ player1, player2 }) => {
     [2, 4, 6],
   ];
 
-  const isWinning = (combination, playerName) => {
-    for (let i = 0; i < winningCombinations.length; i++) {
-      const [a, b, c] = winningCombinations[i];
-      if (
-        combination[a] &&
-        combination[a] === combination[b] &&
-        combination[a] === combination[c]
-      ) {
-        return combination[a];
-      }
+  const isWinning = (playerCombination, playerName) => {
+    console.log(playerName, playerCombination);
+
+    // Fonction pour vérifier si une combinaison est contenue dans le tableau
+    function containsCombination(array, combination) {
+      return combination.every((value) => array.includes(value));
     }
 
-    return null;
+    // Vérifier si l'une des combinaisons gagnantes est contenue dans arrayToCheck
+    const containsWinningCombination = winningCombinations.some(
+      (combination) => {
+        return containsCombination(playerCombination, combination);
+      }
+    );
+    if (containsWinningCombination) {
+      console.log("Le tableau contient une combinaison gagnante.");
+    } else {
+      console.log("Le tableau ne contient pas de combinaison gagnante.");
+    }
   };
 
   //Handle player turn
   useEffect(() => {
-    if (clikedSquare) {
-      if (rowCounter % 2 === 0) {
-        setPlayer1Combination([...player1Combination, clikedSquare]);
-        const result = isWinning(player1Combination, "Player 1");
-        console.log("result", result);
-      } else {
-        setPlayer2Combination([...player2Combination, clikedSquare]);
-        const result = isWinning(player2Combination, "Player 2");
-        console.log("result", result);
-      }
-    }
-
     if (rowCounter === 9) {
       console.log("partie terminée");
     }
   }, [rowCounter]);
-
-  //Stock wich square has been clicked
 
   const incrementRow = () => {
     setRowConter(rowCounter + 1);
@@ -70,18 +62,42 @@ const BoardGame = ({ player1, player2 }) => {
         <div className="board-row">
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="0"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="1"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="2"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
@@ -90,18 +106,42 @@ const BoardGame = ({ player1, player2 }) => {
         <div className="board-row">
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="3"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="4"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="5"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
@@ -110,18 +150,42 @@ const BoardGame = ({ player1, player2 }) => {
         <div className="board-row">
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="6"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="7"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
           />
           <Square
             value={rowCounter % 2 === 0 ? "X" : "O"}
+            setPlayerCombination={
+              rowCounter % 2 === 0
+                ? setPlayer1Combination
+                : setPlayer2Combination
+            }
+            playerCombination={
+              rowCounter % 2 === 0 ? player1Combination : player2Combination
+            }
             numero="8"
             setSquareValue={setClickeSquare}
             incrementRow={incrementRow}
