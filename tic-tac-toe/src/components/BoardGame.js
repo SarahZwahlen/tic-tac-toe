@@ -34,14 +34,26 @@ const BoardGame = ({ player1, player2 }) => {
       }
     );
     if (containsWinningCombination) {
-      console.log("Le tableau contient une combinaison gagnante.");
+      return true;
     } else {
-      console.log("Le tableau ne contient pas de combinaison gagnante.");
+      return false;
     }
   };
 
   //Handle player turn
   useEffect(() => {
+    if (rowCounter % 2 === 0) {
+      const result = isPlayerWinning(player1Combination, "player1");
+      if (result) {
+        setIsWinning({ win: true, name: player1 });
+      }
+    } else {
+      const result = isPlayerWinning(player2Combination, "player2");
+      if (result) {
+        setIsWinning({ win: true, name: player2 });
+      }
+    }
+
     if (rowCounter === 9) {
       console.log("partie terminée");
     }
