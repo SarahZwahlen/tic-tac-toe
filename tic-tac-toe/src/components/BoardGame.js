@@ -6,6 +6,7 @@ const BoardGame = ({ player1, player2 }) => {
   const [player2Combination, setPlayer2Combination] = useState([]);
   const [rowCounter, setRowConter] = useState(0);
   const [clikedSquare, setClickeSquare] = useState(null);
+  const [isWinning, setIsWinning] = useState({ win: false, name: null });
 
   const winningCombinations = [
     [0, 1, 2],
@@ -18,7 +19,7 @@ const BoardGame = ({ player1, player2 }) => {
     [2, 4, 6],
   ];
 
-  const isWinning = (playerCombination, playerName) => {
+  const isPlayerWinning = (playerCombination, playerName) => {
     console.log(playerName, playerCombination);
 
     // Fonction pour vérifier si une combinaison est contenue dans le tableau
@@ -52,6 +53,8 @@ const BoardGame = ({ player1, player2 }) => {
 
   return (
     <>
+      {isWinning.win && <h2>{isWinning.name} a gagné</h2>}
+
       <p>Tour n°{rowCounter}: </p>
       {rowCounter % 2 === 0 ? (
         <p>Au tour de {player1}</p>
