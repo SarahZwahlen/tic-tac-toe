@@ -1,6 +1,8 @@
 
 
-const NavBar = () =>{
+const NavBar = ({handleNewGame}) =>{
+
+  
     
     return (
         <header>
@@ -11,7 +13,7 @@ const NavBar = () =>{
         <nav>
             <ul>
                 <li>
-                    <button>
+                    <button onClick={handleNewGame}>
                         Jouer
                     </button>
                 </li>
