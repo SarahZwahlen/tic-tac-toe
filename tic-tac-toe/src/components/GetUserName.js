@@ -8,7 +8,10 @@ const GetUserName = ({ playerNumber }) => {
 
   function handleUserName(e) {
     e.preventDefault();
-    createPlayer(playerNumber, { name, combination: [] });
+    createPlayer(playerNumber, {
+      name,
+      combination: [],
+    });
     localStorage.setItem(
       `player${playerNumber}`,
       JSON.stringify({ name: name, combination: [] })

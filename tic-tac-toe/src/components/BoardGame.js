@@ -1,17 +1,17 @@
 import Square from "./Square";
 import { useEffect, useState } from "react";
 import GameHistory from "./GameHistory";
+import { useGameContext } from "../infrastructure/context";
 
-const BoardGame = ({ player1, player2 }) => {
-  const [player1Combination, setPlayer1Combination] = useState([]);
-  const [player2Combination, setPlayer2Combination] = useState([]);
-  const [roundCounter, setRoundCounter] = useState(0);
+const BoardGame = () => {
   const [isWinning, setIsWinning] = useState({ win: false, name: null });
   const [stopGame, setStopGame] = useState(false);
   const [gameHistory, setGameHistory] = useState(
     JSON.parse(localStorage.getItem("gameHistory")) || []
   );
   const [showHistory, setShowHistory] = useState(false);
+
+  const { round, player1, player2, updateRound } = useGameContext();
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -26,89 +26,37 @@ const BoardGame = ({ player1, player2 }) => {
     [2, 4, 6],
   ];
 
-  const squareIsClicked = (numero) => {
-    setRoundCounter(roundCounter + 1);
-    localStorage.setItem("round", roundCounter + 1);
-    if (roundCounter % 2 === 0) {
-      setPlayer1Combination([...player1Combination, parseInt(numero)]);
-      localStorage.setItem(
-        "player1",
-        JSON.stringify({
-          player: player1,
-          combination: [...player1Combination, parseInt(numero)],
-        })
-      );
-    } else {
-      setPlayer2Combination([...player2Combination, parseInt(numero)]);
-      localStorage.setItem(
-        "player2",
-        JSON.stringify({
-          player: player2,
-          combination: [...player2Combination, parseInt(numero)],
-        })
-      );
-    }
-  };
-
-  const isPlayerWinning = (playerCombination, playerName) => {
+  const isPlayerWinning = ({ combination, name }) => {
     function containsCombination(array, combination) {
       return combination.every((value) => array.includes(value));
     }
 
     const containsWinningCombination = winningCombinations.some(
       (combination) => {
-        return containsCombination(playerCombination, combination);
+        return containsCombination(combination, combination);
       }
     );
 
     if (containsWinningCombination) {
       setStopGame(true);
-      setIsWinning({ win: true, name: playerName });
+      setIsWinning({ win: true, name: name });
     }
   };
 
-  useEffect(() => {
-    const p1CurrentCombination = JSON.parse(
-      localStorage.getItem("player1")
-    ).combination;
+  // useEffect(() => {
+  //   // if (round % 2 === 0) {
+  //   //   isPlayerWinning(player2);
+  //   // } else {
+  //   //   isPlayerWinning(player1);
+  //   // }
 
-    const p2CurrentCombination = JSON.parse(
-      localStorage.getItem("player2")
-    ).combination;
-
-    if (
-      p1CurrentCombination.length > 0 &&
-      p2CurrentCombination.length > 0 &&
-      player1Combination.length === 0 &&
-      player2Combination.length === 0
-    ) {
-      setPlayer1Combination(p1CurrentCombination);
-      setPlayer2Combination(p2CurrentCombination);
-    }
-
-    if (roundCounter % 2 === 0) {
-      isPlayerWinning(player2Combination, player2);
-    } else {
-      isPlayerWinning(player1Combination, player1);
-    }
-
-    if (roundCounter === 9) {
-      setStopGame(true);
-    }
-  }, [player1Combination, player2Combination]);
-
-  //reset players
-  useEffect(() => {
-    const isGameRunning = JSON.parse(localStorage.getItem("round"));
-    if (isGameRunning) {
-      setRoundCounter(isGameRunning);
-    }
-    setPlayer1Combination([]);
-    setPlayer2Combination([]);
-  }, [player1, player2]);
+  //   // if (round === 9) {
+  //   //   setStopGame(true);
+  //   // }
+  // }, [player1, player2]);
 
   useEffect(() => {
-    if (isWinning.win || roundCounter === 9) {
+    if (isWinning.win || round === 9) {
       const updatedHistory = [
         ...gameHistory,
         { winner: isWinning.name || null },
@@ -131,22 +79,21 @@ const BoardGame = ({ player1, player2 }) => {
 
       {!stopGame && (
         <>
-          {roundCounter % 2 === 0 ? (
+          {round % 2 === 0 ? (
             <p className="display">
-              Au tour de <span className="playerX"> {player1} </span>
+              Au tour de <span className="playerX"> {player1.name} </span>
             </p>
           ) : (
             <p className="display">
-              Au tour de <span className="playerO"> {player2} </span>
+              Au tour de <span className="playerO"> {player2.name} </span>
             </p>
           )}
           <div className="container">
             {boardGameValues.map((number) => (
               <div className="case" key={`case ${number}`}>
                 <Square
-                  numero={number}
-                  value={roundCounter % 2 === 0 ? "X" : "O"}
-                  squareIsClicked={squareIsClicked}
+                  squareNumero={number}
+                  value={round % 2 === 0 ? "X" : "O"}
                 />
               </div>
             ))}

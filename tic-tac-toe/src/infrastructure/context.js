@@ -6,24 +6,60 @@ const GameContext = createContext({
   player2: null,
   createPlayer: (number, playerData) => {},
   resetPlayers: () => {},
-  updatePlayer: (number, playerData) => {},
+  updatePlayerCombination: (number, playerData) => {},
   incrementRound: () => {},
   resetRound: () => {},
+  updateRound: (value) => {},
 });
 
 const useGameContext = () => useContext(GameContext);
 
 const GameProvider = ({ children }) => {
-  const [player1, setPlayer1] = useState({ name: null, combination: [] });
-  const [player2, setPlayer2] = useState({ name: null, combination: [] });
+  const [player1, setPlayer1] = useState({
+    name: null,
+    combination: [],
+    isCurrentPlayer: true,
+  });
+  const [player2, setPlayer2] = useState({
+    name: null,
+    combination: [],
+    isCurrentPlayer: false,
+  });
+
   const [round, setRound] = useState(0);
 
   const createPlayer = (number, playerData) => {
-    number === 1 ? setPlayer1(playerData) : setPlayer2(playerData);
+    number === 1
+      ? setPlayer1({ ...playerData, isCurrentPlayer: true })
+      : setPlayer2({ ...playerData, isCurrentPlayer: false });
   };
 
-  const updatePlayer = (number, playerData) => {
-    number === 1 ? setPlayer1(playerData) : setPlayer2(playerData);
+  const updatePlayerCombination = (newValue) => {
+    round % 2 === 0
+      ? localStorage.setItem(
+          "player1",
+          JSON.stringify({
+            ...player1,
+            combination: [...player1.combination, newValue],
+          })
+        )
+      : localStorage.setItem(
+          "player2",
+          JSON.stringify({
+            ...player2,
+            combination: [...player2.combination, newValue],
+          })
+        );
+
+    round % 2 === 0
+      ? setPlayer1({
+          ...player1,
+          combination: [...player1.combination, newValue],
+        })
+      : setPlayer2({
+          ...player2,
+          combination: [...player2.combination, newValue],
+        });
   };
 
   const incrementRound = () => {
@@ -35,8 +71,12 @@ const GameProvider = ({ children }) => {
   };
 
   const resetPlayers = () => {
-    setPlayer1({ name: null, combination: [] });
-    setPlayer2({ name: null, combination: [] });
+    setPlayer1({ name: null, combination: [], isCurrentPlayer: true });
+    setPlayer2({ name: null, combination: [], isCurrentPlayer: false });
+  };
+
+  const updateRound = (value) => {
+    setRound(value);
   };
 
   const gameContext = {
@@ -45,9 +85,10 @@ const GameProvider = ({ children }) => {
     round,
     createPlayer,
     incrementRound,
-    updatePlayer,
     resetRound,
     resetPlayers,
+    updateRound,
+    updatePlayerCombination,
   };
 
   return (
