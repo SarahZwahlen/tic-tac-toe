@@ -18,6 +18,14 @@ const BoardGame = ({ player1, player2 }) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  const squareIsClicked = (numero) => {
+    setRoundCounter(roundCounter + 1);
+    if (roundCounter % 2 === 0) {
+      setPlayer1Combination([...player1Combination, parseInt(numero)]);
+    } else {
+      setPlayer2Combination([...player2Combination, parseInt(numero)]);
+    }
+  };
 
   const isPlayerWinning = (playerCombination, playerName) => {
     // Fonction pour vérifier si une combinaison est contenue dans le tableau
@@ -48,10 +56,6 @@ const BoardGame = ({ player1, player2 }) => {
     }
   }, [roundCounter]);
 
-  const incrementRow = () => {
-    setRoundCounter(roundCounter + 1);
-  };
-
   return (
     <>
       {isWinning.win && <h2>{isWinning.name} a gagné</h2>}
@@ -59,163 +63,73 @@ const BoardGame = ({ player1, player2 }) => {
       <p>Tour n°{roundCounter}: </p>
       {roundCounter % 2 === 0 ? (
         <p>Au tour de {player1}</p>
+      ) : roundCounter % 2 === 0 ? (
+        <p className="display">
+          Au tour de <span className="playerX"> {player1} </span>
+        </p>
       ) : (
-        rowCounter % 2 === 0 ? (
-          <p className="display">Au tour de <span className="playerX"> {player1} </span></p>
-        ) : (
-          <p className="display">Au tour de <span className="playerO"> {player2} </span></p>
-        )
+        <p className="display">
+          Au tour de <span className="playerO"> {player2} </span>
+        </p>
       )}
       <div className="container">
         <div className="case">
           <Square
             value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="0"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
-          />
-          </div>
-          <div className="case">
-          <Square
-            value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="1"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
-          />
-          </div>
-          <div className="case">
-          <Square
-            value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="2"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
+            squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
             value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="3"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
-          />
-          </div>
-          <div className="case">
-          <Square
-            value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="4"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
-          />
-          </div>
-          <div className="case">
-          <Square
-            value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="5"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
+            squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
             value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="6"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
+            squareIsClicked={squareIsClicked}
           />
-          </div>
-          <div className="case">
+        </div>
+        <div className="case">
           <Square
             value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="7"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
+            squareIsClicked={squareIsClicked}
           />
-          </div>
-          <div className="case">
+        </div>
+        <div className="case">
           <Square
             value={roundCounter % 2 === 0 ? "X" : "O"}
-            setPlayerCombination={
-              roundCounter % 2 === 0
-                ? setPlayer1Combination
-                : setPlayer2Combination
-            }
-            playerCombination={
-              roundCounter % 2 === 0 ? player1Combination : player2Combination
-            }
-            numero="8"
-            setSquareValue={setClickeSquare}
-            incrementRow={incrementRow}
+            squareIsClicked={squareIsClicked}
+          />
+        </div>
+        <div className="case">
+          <Square
+            value={roundCounter % 2 === 0 ? "X" : "O"}
+            squareIsClicked={squareIsClicked}
+          />
+        </div>
+        <div className="case">
+          <Square
+            value={roundCounter % 2 === 0 ? "X" : "O"}
+            squareIsClicked={squareIsClicked}
+          />
+        </div>
+        <div className="case">
+          <Square
+            value={roundCounter % 2 === 0 ? "X" : "O"}
+            squareIsClicked={squareIsClicked}
+          />
+        </div>
+        <div className="case">
+          <Square
+            value={roundCounter % 2 === 0 ? "X" : "O"}
+            squareIsClicked={squareIsClicked}
           />
         </div>
       </div>
-      
     </>
   );
 };
 
 export default BoardGame;
-

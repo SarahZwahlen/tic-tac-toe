@@ -1,22 +1,13 @@
 import { useState } from "react";
 
-const Square = ({
-  value,
-  setSquareValue,
-  numero,
-  incrementRow,
-  setPlayerCombination,
-  playerCombination,
-}) => {
+const Square = ({ value, squareIsClicked }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [symbol, setSymbol] = useState(null);
 
   const handleClick = () => {
     setIsClicked(true);
-    setSquareValue(parseInt(numero));
-    incrementRow();
     setSymbol(value);
-    setPlayerCombination([...playerCombination, parseInt(numero)]);
+    squareIsClicked(value);
   };
 
   return (
