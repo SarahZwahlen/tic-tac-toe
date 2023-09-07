@@ -68,7 +68,9 @@ const BoardGame = ({ player1, player2 }) => {
 
   return (
     <>
-      {isWinning.win && <h2 className="display">{isWinning.name} a gagné</h2>}
+      {isWinning.win && (
+        <h2 className="display winner">{isWinning.name} a gagné</h2>
+      )}
       {stopGame && <h2 className="display">La partie est terminée !</h2>}
 
       {!stopGame && (
