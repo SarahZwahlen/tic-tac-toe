@@ -16,9 +16,11 @@ const Main = ({ setIsReset, isReset }) => {
   return (
     <main>
       <div>
-        <h2 className="title">
-          {playerName1} <span className="playerX">VS</span> {playerName2}
-        </h2>
+        {playerName1 && playerName2 && (
+          <h2 className="title">
+            {playerName1} <span className="playerX">VS</span> {playerName2}
+          </h2>
+        )}
       </div>
       {playerName1 === null ? (
         <GetUserName playerNumber="1" setPlayerName={setPlayerName1} />

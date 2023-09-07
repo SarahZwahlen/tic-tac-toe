@@ -9,7 +9,6 @@ function App() {
   const [isReset, setIsReset] = useState(false)
   function resetPlayers(e) {
     setIsReset(true);
-    
    }
   return (
   <>
