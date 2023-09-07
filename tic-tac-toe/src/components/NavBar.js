@@ -1,24 +1,22 @@
 
 
 const NavBar = ({handleNewGame}) =>{
-
-  
-    
+ 
     return (
-        <header>
-        <h1>
+        <header className="background">
+        <h1 className="title">
             Super Morpion
         </h1>
         <img src=""></img>
         <nav>
-            <ul>
+            <ul className="controls">
                 <li>
-                    <button onClick={handleNewGame}>
-                        Jouer
+                    <button className="reset" onClick={handleNewGame}>
+                        Rejouer
                     </button>
                 </li>
                 <li>
-                    <button>
+                    <button className="reset">
                         Historique des Parties
                     </button>
                 </li>

@@ -12,7 +12,7 @@ const Square = ({ value, setSquareValue, numero, incrementRow }) => {
   };
 
   return (
-    <button disabled={isClicked} className="square" onClick={handleClick}>
+    <button disabled={isClicked} className="case" onClick={handleClick}>
       {isClicked && <span>{symbol}</span>}
     </button>
   );
