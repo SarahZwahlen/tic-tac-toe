@@ -15,11 +15,6 @@ const NavBar = ({handleNewGame}) =>{
                         Rejouer
                     </button>
                 </li>
-                <li>
-                    <button className="reset">
-                        Historique des Parties
-                    </button>
-                </li>
             </ul>
         </nav>
         </header>

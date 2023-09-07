@@ -1,11 +1,13 @@
 import Square from "./Square";
 import { useEffect, useState } from "react";
+import GameHistory from "./GameHistory";
 
 const BoardGame = ({ player1, player2 }) => {
   const [player1Combination, setPlayer1Combination] = useState([]);
   const [player2Combination, setPlayer2Combination] = useState([]);
   const [roundCounter, setRoundCounter] = useState(0);
   const [isWinning, setIsWinning] = useState({ win: false, name: null });
+  const [gameHistory, setGameHistory] = useState([]);
 
   const [stopGame, setStopGame] = useState(false);
 
@@ -97,7 +99,22 @@ const BoardGame = ({ player1, player2 }) => {
           </div>
         </>
       )}
+      <div className="title">
+     <button
+        className="reset"
+        onClick={() => {
+          setGameHistory([...gameHistory, { winner: isWinning.name }]);
+        }}
+      >
+        Historique des Parties
+      </button>
+      {}
+      <GameHistory className="display" history={gameHistory} />
+      </div>
     </>
+    
+     
+    
   );
 };
 
