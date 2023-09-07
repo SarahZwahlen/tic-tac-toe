@@ -9,6 +9,8 @@ const BoardGame = ({ player1, player2 }) => {
 
   const [stopGame, setStopGame] = useState(false);
 
+  const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
   const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -43,7 +45,6 @@ const BoardGame = ({ player1, player2 }) => {
     if (containsWinningCombination) {
       setStopGame(true);
       setIsWinning({ win: true, name: playerName });
-
     }
   };
 
@@ -82,69 +83,15 @@ const BoardGame = ({ player1, player2 }) => {
             </p>
           )}
           <div className="container">
-            <div className="case">
-              <Square
-                numero="0"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="1"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="2"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="3"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="4"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="5"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="6"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="7"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
-            <div className="case">
-              <Square
-                numero="8"
-                value={roundCounter % 2 === 0 ? "X" : "O"}
-                squareIsClicked={squareIsClicked}
-              />
-            </div>
+            {boardGameValues.map((number) => (
+              <div className="case">
+                <Square
+                  numero={number}
+                  value={roundCounter % 2 === 0 ? "X" : "O"}
+                  squareIsClicked={squareIsClicked}
+                />
+              </div>
+            ))}
           </div>
         </>
       )}
