@@ -1,23 +1,18 @@
 import { useState } from "react";
+import { useGameContext } from "../infrastructure/context";
 
-const GetUserName = ({ setPlayerName, playerNumber }) => {
+const GetUserName = ({ playerNumber }) => {
   const [name, setName] = useState("");
+
+  const { createPlayer } = useGameContext();
 
   function handleUserName(e) {
     e.preventDefault();
-    if (name.trim() === "") {
-      setPlayerName(null);
-      localStorage.setItem(
-        `player${playerNumber}`,
-        JSON.stringify({ player: null, combination: [] })
-      );
-    } else {
-      setPlayerName(name);
-      localStorage.setItem(
-        `player${playerNumber}`,
-        JSON.stringify({ player: name, combination: [] })
-      );
-    }
+    createPlayer(playerNumber, { name, combination: [] });
+    localStorage.setItem(
+      `player${playerNumber}`,
+      JSON.stringify({ name: name, combination: [] })
+    );
   }
   return (
     <form className="display">

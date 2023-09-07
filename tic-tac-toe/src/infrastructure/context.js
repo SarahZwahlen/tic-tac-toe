@@ -5,19 +5,24 @@ const GameContext = createContext({
   player1: null,
   player2: null,
   createPlayer: (number, playerData) => {},
+  resetPlayers: () => {},
+  updatePlayer: (number, playerData) => {},
   incrementRound: () => {},
   resetRound: () => {},
-  resetPlayers: () => {},
 });
 
 const useGameContext = () => useContext(GameContext);
 
 const GameProvider = ({ children }) => {
-  const [player1, setPlayer1] = useState(null);
-  const [player2, setPlayer2] = useState(null);
+  const [player1, setPlayer1] = useState({ name: null, combination: [] });
+  const [player2, setPlayer2] = useState({ name: null, combination: [] });
   const [round, setRound] = useState(0);
 
   const createPlayer = (number, playerData) => {
+    number === 1 ? setPlayer1(playerData) : setPlayer2(playerData);
+  };
+
+  const updatePlayer = (number, playerData) => {
     number === 1 ? setPlayer1(playerData) : setPlayer2(playerData);
   };
 
@@ -40,6 +45,7 @@ const GameProvider = ({ children }) => {
     round,
     createPlayer,
     incrementRound,
+    updatePlayer,
     resetRound,
     resetPlayers,
   };
