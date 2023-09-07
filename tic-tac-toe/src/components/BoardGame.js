@@ -60,18 +60,16 @@ const BoardGame = ({ player1, player2 }) => {
     <>
       {isWinning.win && <h2>{isWinning.name} a gagné</h2>}
 
-      <p>Tour n°{roundCounter}: </p>
-      {roundCounter % 2 === 0 ? (
-        <p>Au tour de {player1}</p>
-      ) : roundCounter % 2 === 0 ? (
-        <p className="display">
-          Au tour de <span className="playerX"> {player1} </span>
-        </p>
-      ) : (
-        <p className="display">
-          Au tour de <span className="playerO"> {player2} </span>
-        </p>
-      )}
+      <p className="display">Tour n°{roundCounter}: </p>
+      
+        
+       
+        {roundCounter % 2 === 0 ? (
+          <p className="display">Au tour de <span className="playerX"> {player1} </span></p>
+        ) : (
+          <p className="display">Au tour de <span className="playerO"> {player2} </span></p>
+        )
+      }
       <div className="container">
         <div className="case">
           <Square
