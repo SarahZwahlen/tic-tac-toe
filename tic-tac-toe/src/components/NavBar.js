@@ -1,12 +1,15 @@
-const NavBar = ({ handleNewGame }) => {
+import { useGameContext } from "../infrastructure/context";
+
+const NavBar = () => {
+  const { resetPlayers } = useGameContext();
+
   return (
-    
     <header className="background">
       <div className="waves-rotate">
-          <div className="wave wave1"></div>
-          <div className="wave wave2"></div>
-          <div className="wave wave3"></div>
-          <div className="wave wave4"></div>
+        <div className="wave wave1"></div>
+        <div className="wave wave2"></div>
+        <div className="wave wave3"></div>
+        <div className="wave wave4"></div>
       </div>
       <h1 className="title1">Super Morpion</h1>
       <nav>
@@ -18,7 +21,7 @@ const NavBar = ({ handleNewGame }) => {
                 localStorage.removeItem("player1");
                 localStorage.removeItem("player2");
                 localStorage.removeItem("round");
-                handleNewGame();
+                resetPlayers();
               }}
             >
               Rejouer

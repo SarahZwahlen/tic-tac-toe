@@ -35,8 +35,8 @@ const GameProvider = ({ children }) => {
   };
 
   const resetPlayers = () => {
-    setPlayer1(null);
-    setPlayer2(null);
+    setPlayer1({ name: null, combination: [] });
+    setPlayer2({ name: null, combination: [] });
   };
 
   const gameContext = {
