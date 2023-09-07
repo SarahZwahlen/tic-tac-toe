@@ -11,7 +11,7 @@ const BoardGame = () => {
   );
   const [showHistory, setShowHistory] = useState(false);
 
-  const { round, player1, player2, updateRound } = useGameContext();
+  const { round, player1, player2 } = useGameContext();
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -26,34 +26,35 @@ const BoardGame = () => {
     [2, 4, 6],
   ];
 
-  const isPlayerWinning = ({ combination, name }) => {
+  const isPlayerWinning = (player) => {
+    console.log("name + comb", player.name, player.combination);
     function containsCombination(array, combination) {
       return combination.every((value) => array.includes(value));
     }
 
     const containsWinningCombination = winningCombinations.some(
       (combination) => {
-        return containsCombination(combination, combination);
+        return containsCombination(player.combination, combination);
       }
     );
 
     if (containsWinningCombination) {
       setStopGame(true);
-      setIsWinning({ win: true, name: name });
+      setIsWinning({ win: true, name: player.name });
     }
   };
 
-  // useEffect(() => {
-  //   // if (round % 2 === 0) {
-  //   //   isPlayerWinning(player2);
-  //   // } else {
-  //   //   isPlayerWinning(player1);
-  //   // }
+  useEffect(() => {
+    if (round % 2 === 0) {
+      isPlayerWinning(player2);
+    } else {
+      isPlayerWinning(player1);
+    }
 
-  //   // if (round === 9) {
-  //   //   setStopGame(true);
-  //   // }
-  // }, [player1, player2]);
+    if (round === 9) {
+      setStopGame(true);
+    }
+  }, [player1, player2]);
 
   useEffect(() => {
     if (isWinning.win || round === 9) {

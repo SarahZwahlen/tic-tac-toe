@@ -6,7 +6,7 @@ const Square = ({ value, squareNumero }) => {
   const [symbol, setSymbol] = useState(null);
   const [isX, setisX] = useState(null);
 
-  const { round, updatePlayerCombination, incrementRound } = useGameContext();
+  const { updatePlayerCombination, incrementRound } = useGameContext();
 
   useEffect(() => {
     const p1Data = JSON.parse(localStorage.getItem("player1")).combination;
