@@ -27,7 +27,7 @@ const Footer = () => {
       </div>
       <div className="credits">
         <p className=" display playerX">
-          La meilleure application créée par Natacha et Sarah
+          La meilleure application de morpion créée par Natacha et Sarah
         </p>
         <div className="greatings">
           <DevCard devData={natachaData} />
