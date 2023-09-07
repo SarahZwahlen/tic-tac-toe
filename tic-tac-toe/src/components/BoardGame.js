@@ -11,7 +11,7 @@ const BoardGame = ({ player1, player2 }) => {
   const [gameHistory, setGameHistory] = useState(
     JSON.parse(localStorage.getItem("gameHistory")) || []
   );
-  const [showHistory, setShowHistory] = useState(false); 
+  const [showHistory, setShowHistory] = useState(false);
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -30,8 +30,22 @@ const BoardGame = ({ player1, player2 }) => {
     setRoundCounter(roundCounter + 1);
     if (roundCounter % 2 === 0) {
       setPlayer1Combination([...player1Combination, parseInt(numero)]);
+      localStorage.setItem(
+        "player1",
+        JSON.stringify({
+          player1: player1,
+          combination: [...player1Combination, parseInt(numero)],
+        })
+      );
     } else {
       setPlayer2Combination([...player2Combination, parseInt(numero)]);
+      localStorage.setItem(
+        "player2",
+        JSON.stringify({
+          player1: player2,
+          combination: [...player1Combination, parseInt(numero)],
+        })
+      );
     }
   };
 
@@ -71,15 +85,18 @@ const BoardGame = ({ player1, player2 }) => {
   }, [player1, player2]);
 
   useEffect(() => {
-    if (isWinning.win ||  roundCounter === 9)  {
-      const updatedHistory = [...gameHistory, { winner: isWinning.name || null}];
+    if (isWinning.win || roundCounter === 9) {
+      const updatedHistory = [
+        ...gameHistory,
+        { winner: isWinning.name || null },
+      ];
       setGameHistory(updatedHistory);
       localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
     }
   }, [isWinning]);
   const clearHistory = () => {
-    setGameHistory([]); 
-    localStorage.removeItem("gameHistory"); 
+    setGameHistory([]);
+    localStorage.removeItem("gameHistory");
   };
   return (
     <>
@@ -101,7 +118,7 @@ const BoardGame = ({ player1, player2 }) => {
           )}
           <div className="container">
             {boardGameValues.map((number) => (
-              <div className="case">
+              <div className="case" key={`case ${number}`}>
                 <Square
                   numero={number}
                   value={roundCounter % 2 === 0 ? "X" : "O"}
@@ -113,25 +130,21 @@ const BoardGame = ({ player1, player2 }) => {
         </>
       )}
       <div className="title">
-      <button
-        className="reset"
-        onClick={() => {
-          setShowHistory(!showHistory);
-        }}
-      >
-        Historique des Parties
-      </button>
-      <button className="reset" onClick={clearHistory}>
-        Vider l'historique
-      </button>
-      {}
-      {showHistory && <GameHistory history={gameHistory} />}
-      
+        <button
+          className="reset"
+          onClick={() => {
+            setShowHistory(!showHistory);
+          }}
+        >
+          Historique des Parties
+        </button>
+        <button className="reset" onClick={clearHistory}>
+          Vider l'historique
+        </button>
+        {}
+        {showHistory && <GameHistory history={gameHistory} />}
       </div>
     </>
-    
-     
-    
   );
 };
 

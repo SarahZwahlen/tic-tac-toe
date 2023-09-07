@@ -13,6 +13,13 @@ const Main = ({ setIsReset, isReset }) => {
     }
   }, [isReset]);
 
+  useEffect(() => {
+    const player1Data = localStorage.getItem("player1");
+    const player2Data = localStorage.getItem("player2");
+    console.log("data P1", player1Data);
+    console.log("data P2", player2Data);
+  }, []);
+
   return (
     <main>
       <div>
