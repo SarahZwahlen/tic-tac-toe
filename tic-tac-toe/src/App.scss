@@ -34,6 +34,8 @@ main {
     text-align: center;
     font-size: 40px;
     margin-top: 1rem;
+    z-index: 1000;
+    position: relative;
 }
 
 .display {
@@ -190,6 +192,16 @@ main {
   .logo{
     width: 1.5rem;
   }
+}
+.waves-rotate {
+  position: absolute;
+  scale : -1;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: url("https://i.ibb.co/wQZVxxk/wave.png");
+  background-size: 1000px 100px;
 }
 .wave {
   position: absolute;
