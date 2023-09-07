@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pushster&display=swap');
 
-
+$footer-height : 20rem;
+$header-height : 12rem;
 * {
     padding: 0;
     margin: 0;
@@ -11,6 +12,18 @@ body {
     background-color: black;
     height: 100vh;
     padding-top: 1px;
+}
+header{
+  height: $header-height;
+}
+footer{
+  border-top: 1px solid white;
+  height: $footer-height;
+  display: flex;
+}
+
+main {
+  height: calc(100vh - $footer-height - $header-height);
 }
 
 .title {
@@ -121,6 +134,19 @@ body {
     animation-duration: 3s;
     animation-name : grow-up;
      animation-iteration-count: infinite;
+}
+
+.dev-card {
+  display: flex;
+
+  h3 {
+    color: white;
+  }
+  img{
+    width: 7rem;
+    border-radius: 5px;
+    object-fit: contain;
+  }
 }
 
 @keyframes grow-up {
