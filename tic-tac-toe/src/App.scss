@@ -29,13 +29,19 @@ main {
   height: calc(100vh - $footer-height - $header-height);
 }
 
-.title {
+.title1 {
     color: white;
     text-align: center;
     font-size: 40px;
     margin-top: 1rem;
     z-index: 1000;
     position: relative;
+}
+.title {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 1rem;
 }
 
 .display {
