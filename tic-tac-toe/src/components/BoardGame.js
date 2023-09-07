@@ -11,7 +11,7 @@ const BoardGame = () => {
   );
   const [showHistory, setShowHistory] = useState(false);
 
-  const { round, player1, player2 } = useGameContext();
+  const { round, player1, player2, resetRound } = useGameContext();
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -27,7 +27,6 @@ const BoardGame = () => {
   ];
 
   const isPlayerWinning = (player) => {
-    console.log("name + comb", player.name, player.combination);
     function containsCombination(array, combination) {
       return combination.every((value) => array.includes(value));
     }
@@ -41,6 +40,7 @@ const BoardGame = () => {
     if (containsWinningCombination) {
       setStopGame(true);
       setIsWinning({ win: true, name: player.name });
+      resetRound();
     }
   };
 
