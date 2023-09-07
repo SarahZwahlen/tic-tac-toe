@@ -19,11 +19,11 @@ const BoardGame = ({ player1, player2 }) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   const squareIsClicked = (numero) => {
     setRoundCounter(roundCounter + 1);
     if (roundCounter % 2 === 0) {
       setPlayer1Combination([...player1Combination, parseInt(numero)]);
-      isPlayerWinning(player1Combination, player1);
     } else {
       setPlayer2Combination([...player2Combination, parseInt(numero)]);
     }
@@ -39,25 +39,27 @@ const BoardGame = ({ player1, player2 }) => {
         return containsCombination(playerCombination, combination);
       }
     );
+
     if (containsWinningCombination) {
       setStopGame(true);
       setIsWinning({ win: true, name: playerName });
+
     }
   };
 
   useEffect(() => {
     if (roundCounter % 2 === 0) {
-      isPlayerWinning(player1Combination, player1);
-    } else {
       isPlayerWinning(player2Combination, player2);
+    } else {
+      isPlayerWinning(player1Combination, player1);
     }
 
     if (roundCounter === 9) {
       setStopGame(true);
-      console.log("stop", stopGame);
     }
-  }, [roundCounter]);
+  }, [player1Combination, player2Combination]);
 
+  //reset players
   useEffect(() => {
     setPlayer1Combination([]);
     setPlayer2Combination([]);
