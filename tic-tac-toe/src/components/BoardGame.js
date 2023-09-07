@@ -7,9 +7,11 @@ const BoardGame = ({ player1, player2 }) => {
   const [player2Combination, setPlayer2Combination] = useState([]);
   const [roundCounter, setRoundCounter] = useState(0);
   const [isWinning, setIsWinning] = useState({ win: false, name: null });
-  const [gameHistory, setGameHistory] = useState([]);
-
   const [stopGame, setStopGame] = useState(false);
+  const [gameHistory, setGameHistory] = useState(
+    JSON.parse(localStorage.getItem("gameHistory")) || []
+  );
+  const [showHistory, setShowHistory] = useState(false); 
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -68,6 +70,14 @@ const BoardGame = ({ player1, player2 }) => {
     setPlayer2Combination([]);
   }, [player1, player2]);
 
+  useEffect(() => {
+    if (isWinning.win ||  roundCounter === 9)  {
+      const updatedHistory = [...gameHistory, { winner: isWinning.name || null}];
+      setGameHistory(updatedHistory);
+      localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
+    }
+  }, [isWinning]);
+
   return (
     <>
       {isWinning.win && (
@@ -100,16 +110,17 @@ const BoardGame = ({ player1, player2 }) => {
         </>
       )}
       <div className="title">
-     <button
+      <button
         className="reset"
         onClick={() => {
-          setGameHistory([...gameHistory, { winner: isWinning.name }]);
+          setShowHistory(!showHistory);
         }}
       >
         Historique des Parties
       </button>
       {}
-      <GameHistory className="display" history={gameHistory} />
+      {showHistory && <GameHistory history={gameHistory} />}
+      
       </div>
     </>
     
