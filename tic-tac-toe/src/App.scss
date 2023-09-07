@@ -92,16 +92,17 @@ body {
     font-size: 20px;
     cursor: pointer;
     margin: 2rem;
-}
-.reset:hover {
-  background-color: #b25b6d;
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  margin: 2rem;
+
+    &hover {
+      background-color: #b25b6d;
+      color: white;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      margin: 2rem;
+    }
 }
 .playerName {
   background-color: #ffffff;

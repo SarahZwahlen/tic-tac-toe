@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import BoardGame from "./BoardGame";
 import GetUserName from "./GetUserName";
 
-const Main = ({ setIsReset, isReset }) => {
-  const [playerName1, setPlayerName1] = useState(null);
-  const [playerName2, setPlayerName2] = useState(null);
+const Main = ({ onReset, isReset }) => {
+  const [playerName1, setPlayerName1] = useState("");
+  const [playerName2, setPlayerName2] = useState("");
   useEffect(() => {
-    if (isReset === true) {
-      setPlayerName1(null);
-      setPlayerName2(null);
-      setIsReset(false);
+    if (isReset) {
+      setPlayerName1("");
+      setPlayerName2("");
+      onReset(false);
     }
   }, [isReset]);
 
@@ -32,12 +32,12 @@ const Main = ({ setIsReset, isReset }) => {
           </h2>
         )}
       </div>
-      {playerName1 === null ? (
+      {!playerName1 && (
         <GetUserName playerNumber="1" setPlayerName={setPlayerName1} />
-      ) : null}
-      {playerName2 === null ? (
+      )}
+      {!playerName2 && (
         <GetUserName playerNumber="2" setPlayerName={setPlayerName2} />
-      ) : null}
+      )}
 
       {playerName1 && playerName2 && (
         <BoardGame player1={playerName1} player2={playerName2} />

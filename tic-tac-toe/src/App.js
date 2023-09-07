@@ -4,18 +4,17 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import { useState } from "react";
 
-
 function App() {
-  const [isReset, setIsReset] = useState(false)
-  function resetPlayers(e) {
+  const [isReset, setIsReset] = useState(false);
+  function resetPlayers() {
     setIsReset(true);
-   }
+  }
   return (
-  <>
-    <NavBar handleNewGame={resetPlayers} />
-    <Main isReset={isReset} setIsReset={setIsReset}/>
-    <Footer/>
-  </>
+    <>
+      <NavBar handleNewGame={resetPlayers} />
+      <Main isReset={isReset} onReset={setIsReset} />
+      <Footer />
+    </>
   );
 }
 
