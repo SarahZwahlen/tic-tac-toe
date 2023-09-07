@@ -5,7 +5,6 @@ const BoardGame = ({ player1, player2 }) => {
   const [player1Combination, setPlayer1Combination] = useState([]);
   const [player2Combination, setPlayer2Combination] = useState([]);
   const [roundCounter, setRoundCounter] = useState(0);
-  const [clikedSquare, setClickeSquare] = useState(null);
   const [isWinning, setIsWinning] = useState({ win: false, name: null });
 
   const winningCombinations = [
@@ -58,69 +57,79 @@ const BoardGame = ({ player1, player2 }) => {
 
   return (
     <>
-      {isWinning.win && <h2>{isWinning.name} a gagné</h2>}
+      {isWinning.win && <h2 className="display">{isWinning.name} a gagné</h2>}
 
       <p className="display">Tour n°{roundCounter}: </p>
-      
-        
-       
-        {roundCounter % 2 === 0 ? (
-          <p className="display">Au tour de <span className="playerX"> {player1} </span></p>
-        ) : (
-          <p className="display">Au tour de <span className="playerO"> {player2} </span></p>
-        )
-      }
+
+      {roundCounter % 2 === 0 ? (
+        <p className="display">
+          Au tour de <span className="playerX"> {player1} </span>
+        </p>
+      ) : (
+        <p className="display">
+          Au tour de <span className="playerO"> {player2} </span>
+        </p>
+      )}
       <div className="container">
         <div className="case">
           <Square
+            numero="0"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="1"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="2"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="3"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="4"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="5"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="6"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="7"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />
         </div>
         <div className="case">
           <Square
+            numero="8"
             value={roundCounter % 2 === 0 ? "X" : "O"}
             squareIsClicked={squareIsClicked}
           />

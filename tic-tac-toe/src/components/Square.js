@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-const Square = ({ value, squareIsClicked }) => {
+const Square = ({ value, squareIsClicked, numero }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [symbol, setSymbol] = useState(null);
 
   const handleClick = () => {
     setIsClicked(true);
     setSymbol(value);
-    squareIsClicked(value);
+    squareIsClicked(numero);
   };
 
   return (
