@@ -2,7 +2,6 @@ const NavBar = ({ handleNewGame }) => {
   return (
     <header className="background">
       <h1 className="title">Super Morpion</h1>
-      <img src=""></img>
       <nav>
         <ul className="controls">
           <li>

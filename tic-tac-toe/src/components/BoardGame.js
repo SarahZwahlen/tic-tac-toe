@@ -28,12 +28,13 @@ const BoardGame = ({ player1, player2 }) => {
 
   const squareIsClicked = (numero) => {
     setRoundCounter(roundCounter + 1);
+    localStorage.setItem("round", roundCounter + 1);
     if (roundCounter % 2 === 0) {
       setPlayer1Combination([...player1Combination, parseInt(numero)]);
       localStorage.setItem(
         "player1",
         JSON.stringify({
-          player1: player1,
+          player: player1,
           combination: [...player1Combination, parseInt(numero)],
         })
       );
@@ -42,8 +43,8 @@ const BoardGame = ({ player1, player2 }) => {
       localStorage.setItem(
         "player2",
         JSON.stringify({
-          player1: player2,
-          combination: [...player1Combination, parseInt(numero)],
+          player: player2,
+          combination: [...player2Combination, parseInt(numero)],
         })
       );
     }
@@ -67,6 +68,24 @@ const BoardGame = ({ player1, player2 }) => {
   };
 
   useEffect(() => {
+    const p1CurrentCombination = JSON.parse(
+      localStorage.getItem("player1")
+    ).combination;
+
+    const p2CurrentCombination = JSON.parse(
+      localStorage.getItem("player2")
+    ).combination;
+
+    if (
+      p1CurrentCombination.length > 0 &&
+      p2CurrentCombination.length > 0 &&
+      player1Combination.length === 0 &&
+      player2Combination.length === 0
+    ) {
+      setPlayer1Combination(p1CurrentCombination);
+      setPlayer2Combination(p2CurrentCombination);
+    }
+
     if (roundCounter % 2 === 0) {
       isPlayerWinning(player2Combination, player2);
     } else {
@@ -80,6 +99,10 @@ const BoardGame = ({ player1, player2 }) => {
 
   //reset players
   useEffect(() => {
+    const isGameRunning = JSON.parse(localStorage.getItem("round"));
+    if (isGameRunning) {
+      setRoundCounter(isGameRunning);
+    }
     setPlayer1Combination([]);
     setPlayer2Combination([]);
   }, [player1, player2]);
@@ -94,6 +117,7 @@ const BoardGame = ({ player1, player2 }) => {
       localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
     }
   }, [isWinning]);
+
   const clearHistory = () => {
     setGameHistory([]);
     localStorage.removeItem("gameHistory");

@@ -14,10 +14,13 @@ const Main = ({ setIsReset, isReset }) => {
   }, [isReset]);
 
   useEffect(() => {
-    const player1Data = localStorage.getItem("player1");
-    const player2Data = localStorage.getItem("player2");
-    console.log("data P1", player1Data);
-    console.log("data P2", player2Data);
+    const player1Data = JSON.parse(localStorage.getItem("player1"));
+    const player2Data = JSON.parse(localStorage.getItem("player2"));
+
+    if (player1Data && player2Data) {
+      setPlayerName1(player1Data.player);
+      setPlayerName2(player2Data.player);
+    }
   }, []);
 
   return (
