@@ -4,14 +4,14 @@ import GameHistory from "./GameHistory";
 import { useGameContext } from "../infrastructure/context";
 
 const BoardGame = () => {
-  const [isWinning, setIsWinning] = useState({ win: false, name: null });
-  const [stopGame, setStopGame] = useState(false);
+  const [stopGame, setStopGame] = useState({ win: false, name: null });
   const [gameHistory, setGameHistory] = useState(
     JSON.parse(localStorage.getItem("gameHistory")) || []
   );
   const [showHistory, setShowHistory] = useState(false);
 
-  const { round, player1, player2, resetRound } = useGameContext();
+  const { round, player1, player2, resetRound, createPlayer, updateRound } =
+    useGameContext();
 
   const boardGameValues = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -38,12 +38,38 @@ const BoardGame = () => {
     );
 
     if (containsWinningCombination) {
-      setStopGame(true);
-      setIsWinning({ win: true, name: player.name });
+      setStopGame({ win: true, name: player.name });
       resetRound();
+      saveGameHistory();
     }
   };
 
+  const saveGameHistory = () => {
+    const updatedHistory = [...gameHistory, { winner: stopGame.name || null }];
+    console.log("data",)
+    setGameHistory(updatedHistory);
+    localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
+  };
+
+  //handle data recuperation in case of refresh
+  useEffect(() => {
+    const player1LS = JSON.parse(localStorage.getItem(player1));
+    const player2LS = JSON.parse(localStorage.getItem(player2));
+    const roundLS = localStorage.getItem("round");
+
+    if (
+      player1LS &&
+      player2LS &&
+      player1.combination.length === 0 &&
+      player2.combination.length === 0
+    ) {
+      createPlayer(1, { ...player1LS });
+      createPlayer(2, { ...player2LS });
+      updateRound(roundLS);
+    }
+  }, []);
+
+  //handle winning and end game detection
   useEffect(() => {
     if (round % 2 === 0) {
       isPlayerWinning(player2);
@@ -51,35 +77,26 @@ const BoardGame = () => {
       isPlayerWinning(player1);
     }
 
-    if (round === 9) {
-      setStopGame(true);
+    if (round === boardGameValues.length) {
+      setStopGame({ winn: false, name: null });
       resetRound();
+      saveGameHistory();
     }
   }, [player1, player2]);
-
-  useEffect(() => {
-    if (isWinning.win || round === 9) {
-      const updatedHistory = [
-        ...gameHistory,
-        { winner: isWinning.name || null },
-      ];
-      setGameHistory(updatedHistory);
-      localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
-    }
-  }, [isWinning, stopGame]);
 
   const clearHistory = () => {
     setGameHistory([]);
     localStorage.removeItem("gameHistory");
   };
+
   return (
     <>
-      {isWinning.win && (
-        <h2 className="display winner">{isWinning.name} a gagné</h2>
+      {stopGame.win && (
+        <h2 className="display winner">{stopGame.name} a gagné</h2>
       )}
-      {stopGame && <h2 className="display">La partie est terminée !</h2>}
+      {stopGame.win && <h2 className="display">La partie est terminée !</h2>}
 
-      {!stopGame && (
+      {!stopGame.win && (
         <>
           {round % 2 === 0 ? (
             <p className="display">

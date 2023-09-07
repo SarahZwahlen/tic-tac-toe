@@ -1,9 +1,20 @@
 import BoardGame from "./BoardGame";
 import GetUserName from "./GetUserName";
 import { useGameContext } from "../infrastructure/context";
+import { useEffect } from "react";
 
 const Main = () => {
-  const { player1, player2 } = useGameContext();
+  const { player1, player2, createPlayer } = useGameContext();
+
+  useEffect(() => {
+    const player1SL = JSON.parse(localStorage.getItem("player1"));
+    const player2SL = JSON.parse(localStorage.getItem("player2"));
+
+    if ((player1SL, player2SL)) {
+      createPlayer(1, player1SL);
+      createPlayer(2, player2SL);
+    }
+  }, []);
 
   return (
     <main>

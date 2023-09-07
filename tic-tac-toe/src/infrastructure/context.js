@@ -63,10 +63,12 @@ const GameProvider = ({ children }) => {
   };
 
   const incrementRound = () => {
+    localStorage.setItem("round", round + 1);
     setRound(round + 1);
   };
 
   const resetRound = () => {
+    localStorage.removeItem("round");
     setRound(0);
   };
 
