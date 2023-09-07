@@ -6,19 +6,16 @@ const NavBar = ({ handleNewGame }) => {
       <nav>
         <ul className="controls">
           <li>
-            <button className="reset" onClick={handleNewGame}>
-              Rejouer
-            </button>
-          </li>
-          <li>
             <button
               className="reset"
               onClick={() => {
                 localStorage.removeItem("player1");
                 localStorage.removeItem("player2");
+                localStorage.removeItem("round");
+                handleNewGame();
               }}
             >
-              Recommencer la partie
+              Rejouer
             </button>
           </li>
         </ul>
