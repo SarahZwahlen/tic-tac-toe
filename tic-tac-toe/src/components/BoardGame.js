@@ -116,7 +116,7 @@ const BoardGame = ({ player1, player2 }) => {
       setGameHistory(updatedHistory);
       localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
     }
-  }, [isWinning]);
+  }, [isWinning, stopGame]);
 
   const clearHistory = () => {
     setGameHistory([]);
