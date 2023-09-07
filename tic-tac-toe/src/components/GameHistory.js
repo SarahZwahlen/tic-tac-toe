@@ -6,7 +6,7 @@ const GameHistory = ({ history }) => {
       <h2>Historique des Parties</h2>
       <ul>
         {history.map((game, index) => (
-          <li key={index}>
+          <li className= {game.winner ? "display2 winner":"display2"} key={index}>
             Partie {index + 1}: {game.winner ? `${game.winner} a gagné` : "Match nul"}
           </li>
         ))}

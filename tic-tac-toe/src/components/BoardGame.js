@@ -77,7 +77,10 @@ const BoardGame = ({ player1, player2 }) => {
       localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
     }
   }, [isWinning]);
-
+  const clearHistory = () => {
+    setGameHistory([]); 
+    localStorage.removeItem("gameHistory"); 
+  };
   return (
     <>
       {isWinning.win && (
@@ -117,6 +120,9 @@ const BoardGame = ({ player1, player2 }) => {
         }}
       >
         Historique des Parties
+      </button>
+      <button className="reset" onClick={clearHistory}>
+        Vider l'historique
       </button>
       {}
       {showHistory && <GameHistory history={gameHistory} />}
