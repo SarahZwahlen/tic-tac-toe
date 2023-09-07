@@ -53,6 +53,7 @@ const BoardGame = () => {
 
     if (round === 9) {
       setStopGame(true);
+      resetRound();
     }
   }, [player1, player2]);
 
