@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { GameContext } from "../context/GameContext";
 
-const Square = ({ value, squareIsClicked, numero }) => {
+const Square = ({ isPlayer1, squareIsClicked, numero }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [symbol, setSymbol] = useState(null);
   const [isX, setisX] = useState(null);
+
+  const {updatePlayerCombination} = useContext(GameContext)
 
   useEffect(() => {
     const p1Data = JSON.parse(localStorage.getItem("player1")).combination;
@@ -23,10 +26,11 @@ const Square = ({ value, squareIsClicked, numero }) => {
   }, []);
 
   const handleClick = () => {
+    updatePlayerCombination(isPlayer1, numero)
     setIsClicked(true);
-    setSymbol(value);
-    squareIsClicked(numero);
-    value === "X" ? setisX("playerX") : setisX("playerO");
+    setSymbol(isPlayer1);
+    squareIsClicked();
+    isPlayer1 === "X" ? setisX("playerX") : setisX("playerO");
   };
 
   return (

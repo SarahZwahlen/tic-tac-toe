@@ -1,46 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import BoardGame from "./BoardGame";
 import GetUserName from "./GetUserName";
+import { GameContext } from "../context/GameContext";
 
-const Main = ({ onReset, isReset }) => {
-  const [playerName1, setPlayerName1] = useState("");
-  const [playerName2, setPlayerName2] = useState("");
-  useEffect(() => {
-    if (isReset) {
-      setPlayerName1("");
-      setPlayerName2("");
-      onReset(false);
-    }
-  }, [isReset]);
+const Main = () => {
+  
+  const {player1,player2, resetPlayers, getBackPlayer} = useContext(GameContext)
+
+ 
 
   useEffect(() => {
     const player1Data = JSON.parse(localStorage.getItem("player1"));
     const player2Data = JSON.parse(localStorage.getItem("player2"));
 
     if (player1Data && player2Data) {
-      setPlayerName1(player1Data.player);
-      setPlayerName2(player2Data.player);
+      getBackPlayer(player1Data);
+      getBackPlayer(player2Data);
     }
   }, []);
 
   return (
     <main>
       <div>
-        {playerName1 && playerName2 && (
+        {player1.name && player2.name && (
           <h2 className="title">
-            {playerName1} <span className="playerX">VS</span> {playerName2}
+            {player1.name} <span className="playerX">VS</span> {player2.name}
           </h2>
         )}
       </div>
-      {!playerName1 && (
-        <GetUserName playerNumber="1" setPlayerName={setPlayerName1} />
+      {!player1.name && (
+        <GetUserName playerNumber={1} />
       )}
-      {!playerName2 && (
-        <GetUserName playerNumber="2" setPlayerName={setPlayerName2} />
+      {!player2.name && (
+        <GetUserName playerNumber={2}  />
       )}
 
-      {playerName1 && playerName2 && (
-        <BoardGame player1={playerName1} player2={playerName2} />
+      {player1.name && player2.name && (
+        <BoardGame />
       )}
     </main>
   );

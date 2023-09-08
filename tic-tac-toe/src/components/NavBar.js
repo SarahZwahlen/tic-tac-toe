@@ -1,8 +1,9 @@
 import React, {useContext} from "react";
 import {GameContext} from "../context/GameContext";
 
-const NavBar = ({ handleNewGame }) => {
-  const context = useContext(GameContext);
+const NavBar = () => {
+  const {resetPlayers} = useContext(GameContext);
+
 
   return (
     
@@ -20,10 +21,8 @@ const NavBar = ({ handleNewGame }) => {
             <button
               className="reset"
               onClick={() => {
-                localStorage.removeItem("player1");
-                localStorage.removeItem("player2");
-                localStorage.removeItem("round");
-                handleNewGame();
+
+                resetPlayers();
               }}
             >
               Rejouer
