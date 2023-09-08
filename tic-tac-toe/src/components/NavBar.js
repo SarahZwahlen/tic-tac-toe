@@ -1,4 +1,9 @@
+import React, {useContext} from "react";
+import {GameContext} from "../context/GameContext";
+
 const NavBar = ({ handleNewGame }) => {
+  const context = useContext(GameContext);
+
   return (
     
     <header className="background">
