@@ -40,13 +40,12 @@ const BoardGame = () => {
     if (containsWinningCombination) {
       setStopGame({ win: true, name: player.name });
       resetRound();
-      saveGameHistory();
+      saveGameHistory(player.name);
     }
   };
 
-  const saveGameHistory = () => {
-    const updatedHistory = [...gameHistory, { winner: stopGame.name || null }];
-    console.log("data",)
+  const saveGameHistory = (winner) => {
+    const updatedHistory = [...gameHistory, { winner: winner }];
     setGameHistory(updatedHistory);
     localStorage.setItem("gameHistory", JSON.stringify(updatedHistory));
   };
@@ -80,7 +79,7 @@ const BoardGame = () => {
     if (round === boardGameValues.length) {
       setStopGame({ winn: false, name: null });
       resetRound();
-      saveGameHistory();
+      saveGameHistory(null);
     }
   }, [player1, player2]);
 
@@ -96,29 +95,23 @@ const BoardGame = () => {
       )}
       {stopGame.win && <h2 className="display">La partie est terminée !</h2>}
 
-      {!stopGame.win && (
-        <>
-          {round % 2 === 0 ? (
-            <p className="display">
-              Au tour de <span className="playerX"> {player1.name} </span>
-            </p>
-          ) : (
-            <p className="display">
-              Au tour de <span className="playerO"> {player2.name} </span>
-            </p>
-          )}
-          <div className="container">
-            {boardGameValues.map((number) => (
-              <div className="case" key={`case ${number}`}>
-                <Square
-                  squareNumero={number}
-                  value={round % 2 === 0 ? "X" : "O"}
-                />
-              </div>
-            ))}
-          </div>
-        </>
+      {round % 2 === 0 ? (
+        <p className="display">
+          Au tour de <span className="playerX"> {player1.name} </span>
+        </p>
+      ) : (
+        <p className="display">
+          Au tour de <span className="playerO"> {player2.name} </span>
+        </p>
       )}
+      <div className="container">
+        {boardGameValues.map((number) => (
+          <div className="case" key={`case ${number}`}>
+            <Square squareNumero={number} value={round % 2 === 0 ? "X" : "O"} />
+          </div>
+        ))}
+      </div>
+
       <div className="title">
         <button
           className="reset"
