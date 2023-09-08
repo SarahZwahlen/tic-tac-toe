@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import BoardGame from "./BoardGame";
 import GetUserName from "./GetUserName";
+import BoardGame2 from "./boardGame2";
 
 const Main = ({ onReset, isReset }) => {
   const [playerName1, setPlayerName1] = useState("");
@@ -40,7 +40,7 @@ const Main = ({ onReset, isReset }) => {
       )}
 
       {playerName1 && playerName2 && (
-        <BoardGame player1={playerName1} player2={playerName2} />
+        <BoardGame2 player1={playerName1} player2={playerName2} />
       )}
     </main>
   );
